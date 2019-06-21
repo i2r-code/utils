@@ -21,7 +21,7 @@ public abstract class PlainParameter<Value extends Serializable> extends Paramet
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 * 		{@link Serializable} as value
 	 * @param required
 	 * 		is required
 	 */
@@ -35,13 +35,13 @@ public abstract class PlainParameter<Value extends Serializable> extends Paramet
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 * 		{@link Serializable} as value
 	 * @param required
 	 * 		is required
 	 * @param decorator
 	 * 		decorate name
 	 * @param preProcess
-	 * 		value pre processing expression
+	 * 		value pre processing {@link String} expression
 	 */
 	protected PlainParameter(final String name, final Value value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);

@@ -15,12 +15,12 @@ public class BooleanParameter extends PlainParameter<Boolean> {
 	private static final long serialVersionUID = 3138291787797933254L;
 
 	/**
-	 * Constructor, for lombok builder purposes.
+	 * Constructor.
 	 *
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 *        {@link Boolean} as value
 	 * @param required
 	 * 		is required
 	 */
@@ -29,18 +29,18 @@ public class BooleanParameter extends PlainParameter<Boolean> {
 	}
 
 	/**
-	 * Constructor, for lombok builder purposes.
+	 * Constructor.
 	 *
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 *        {@link Boolean} as value
 	 * @param required
 	 * 		is required
 	 * @param decorator
 	 * 		decorate name
 	 * @param preProcess
-	 * 		value pre processing expression
+	 * 		value pre processing {@link String} expression
 	 */
 	private BooleanParameter(final String name, final Boolean value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);

@@ -18,11 +18,11 @@ public class DoubleParameter extends PlainParameter<Double> {
 	 * Constructor.
 	 *
 	 * @param name
-	 * 		name to use
+	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 * 		{@link Double} as value
 	 * @param required
-	 * 		is required property
+	 * 		is required
 	 */
 	private DoubleParameter(final String name, final Double value, final boolean required) {
 		super(name, value, required);
@@ -32,15 +32,15 @@ public class DoubleParameter extends PlainParameter<Double> {
 	 * Constructor.
 	 *
 	 * @param name
-	 * 		name to use
+	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 * 		{@link Double} as value
 	 * @param required
-	 * 		is required property
+	 * 		is required
 	 * @param decorator
 	 * 		decorate name
 	 * @param preProcess
-	 * 		value pre processing expression
+	 * 		value pre processing {@link String} expression
 	 */
 	private DoubleParameter(final String name, final Double value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);

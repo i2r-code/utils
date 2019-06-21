@@ -18,11 +18,11 @@ public class TimestampParameter extends PlainParameter<Long> {
 	 * Constructor.
 	 *
 	 * @param name
-	 * 		name to use
+	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 * 		{@link Long} as value
 	 * @param required
-	 * 		is required property
+	 * 		is required
 	 */
 	private TimestampParameter(final String name, final Long value, final boolean required) {
 		super(name, value, required);
@@ -32,15 +32,15 @@ public class TimestampParameter extends PlainParameter<Long> {
 	 * Constructor.
 	 *
 	 * @param name
-	 * 		name to use
+	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 * 		{@link Long} as value
 	 * @param required
-	 * 		is required property
+	 * 		is required
 	 * @param decorator
 	 * 		decorate name
 	 * @param preProcess
-	 * 		value pre processing expression
+	 * 		value pre processing {@link String} expression
 	 */
 	private TimestampParameter(final String name, final Long value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);

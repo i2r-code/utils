@@ -18,11 +18,11 @@ public class StringParameter extends PlainParameter<String> {
 	 * Constructor.
 	 *
 	 * @param name
-	 * 		name to use
+	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 * 		{@link String} as value
 	 * @param required
-	 * 		is required property
+	 * 		is required
 	 */
 	private StringParameter(final String name, final String value, final boolean required) {
 		super(name, value, required);
@@ -32,15 +32,15 @@ public class StringParameter extends PlainParameter<String> {
 	 * Constructor.
 	 *
 	 * @param name
-	 * 		name to use
+	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 * 		{@link String} as value
 	 * @param required
-	 * 		is required property
+	 * 		is required
 	 * @param decorator
 	 * 		decorate name
 	 * @param preProcess
-	 * 		value pre processing expression
+	 * 		value pre processing {@link String} expression
 	 */
 	private StringParameter(final String name, final String value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);

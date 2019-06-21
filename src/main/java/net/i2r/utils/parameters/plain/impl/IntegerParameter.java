@@ -18,11 +18,11 @@ public class IntegerParameter extends PlainParameter<Integer> {
 	 * Constructor.
 	 *
 	 * @param name
-	 * 		name to use
+	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 * 		{@link Integer} as value
 	 * @param required
-	 * 		is required property
+	 * 		is required
 	 */
 	private IntegerParameter(final String name, final Integer value, final boolean required) {
 		super(name, value, required);
@@ -32,15 +32,15 @@ public class IntegerParameter extends PlainParameter<Integer> {
 	 * Constructor.
 	 *
 	 * @param name
-	 * 		name to use
+	 * 		parameter name
 	 * @param value
-	 * 		parameter value
+	 * 		{@link Integer} as value
 	 * @param required
-	 * 		is required property
+	 * 		is required
 	 * @param decorator
 	 * 		decorate name
 	 * @param preProcess
-	 * 		value pre processing expression
+	 * 		value pre processing {@link String} expression
 	 */
 	private IntegerParameter(final String name, final Integer value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);
