@@ -2,8 +2,6 @@ package net.i2r.utils.parameters;
 
 /**
  * Type of the parameter.
- *
- * @author h3llka
  */
 public enum ParameterType {
 	/**

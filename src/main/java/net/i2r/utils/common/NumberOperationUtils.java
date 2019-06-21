@@ -6,13 +6,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Additional number util.
+ * Utils for operation with numbers.
  */
-public final class NumberUtils {
+public final class NumberOperationUtils {
 	/**
 	 * Constructor.
 	 */
-	private NumberUtils() {
+	private NumberOperationUtils() {
 		throw new IllegalAccessError("Can't be instantiated!");
 	}
 
