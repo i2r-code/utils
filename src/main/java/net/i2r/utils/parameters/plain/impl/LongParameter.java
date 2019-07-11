@@ -20,11 +20,11 @@ public class LongParameter extends PlainParameter<Long> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link Long} as value
+	 *        {@link Long} as value
 	 * @param required
 	 * 		is required
 	 */
-	private LongParameter(final String name, final Long value, final boolean required) {
+	protected LongParameter(final String name, final Long value, final boolean required) {
 		super(name, value, required);
 	}
 
@@ -34,7 +34,7 @@ public class LongParameter extends PlainParameter<Long> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link Long} as value
+	 *        {@link Long} as value
 	 * @param required
 	 * 		is required
 	 * @param decorator
@@ -42,7 +42,7 @@ public class LongParameter extends PlainParameter<Long> {
 	 * @param preProcess
 	 * 		value pre processing {@link String} expression
 	 */
-	private LongParameter(final String name, final Long value, final boolean required, final String decorator, final String preProcess) {
+	protected LongParameter(final String name, final Long value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);
 	}
 
@@ -57,7 +57,7 @@ public class LongParameter extends PlainParameter<Long> {
 	 * @return {@link Builder}
 	 */
 	public static Builder builder() {
-		return new Builder();
+		return new LongBuilder();
 	}
 
 	@Override
@@ -70,15 +70,24 @@ public class LongParameter extends PlainParameter<Long> {
 	/**
 	 * Builder facility.
 	 */
-	public static class Builder extends PlainParameter.Builder<Long, LongParameter> {
+	public abstract static class Builder<Value extends LongParameter> extends PlainParameter.Builder<Long, Value> {
 
 		@Override
-		public <BType extends Parameter.Builder<Long, LongParameter>> BType valueFromString(final String aValue) {
+		public <BType extends Parameter.Builder<Long, Value>> BType valueFromString(final String aValue) {
 			if (aValue != null)
 				value(Long.valueOf(aValue));
 
 			return CastOperationUtils.cast(this);
 		}
+
+		@Override
+		public abstract Value build();
+	}
+
+	/**
+	 * Builder facility.
+	 */
+	public static class LongBuilder extends Builder<LongParameter> {
 
 		/**
 		 * Perform {@link LongParameter} creation.

@@ -20,11 +20,11 @@ public class TimestampParameter extends PlainParameter<Long> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link Long} as value
+	 *        {@link Long} as value
 	 * @param required
 	 * 		is required
 	 */
-	private TimestampParameter(final String name, final Long value, final boolean required) {
+	protected TimestampParameter(final String name, final Long value, final boolean required) {
 		super(name, value, required);
 	}
 
@@ -34,7 +34,7 @@ public class TimestampParameter extends PlainParameter<Long> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link Long} as value
+	 *        {@link Long} as value
 	 * @param required
 	 * 		is required
 	 * @param decorator
@@ -42,7 +42,7 @@ public class TimestampParameter extends PlainParameter<Long> {
 	 * @param preProcess
 	 * 		value pre processing {@link String} expression
 	 */
-	private TimestampParameter(final String name, final Long value, final boolean required, final String decorator, final String preProcess) {
+	protected TimestampParameter(final String name, final Long value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);
 	}
 
@@ -57,7 +57,7 @@ public class TimestampParameter extends PlainParameter<Long> {
 	 * @return {@link Builder}
 	 */
 	public static Builder builder() {
-		return new Builder();
+		return new TimestampBuilder();
 	}
 
 	@Override
@@ -70,15 +70,24 @@ public class TimestampParameter extends PlainParameter<Long> {
 	/**
 	 * Builder facility.
 	 */
-	public static class Builder extends PlainParameter.Builder<Long, TimestampParameter> {
+	public abstract static class Builder<Value extends TimestampParameter> extends PlainParameter.Builder<Long, Value> {
 
 		@Override
-		public <BType extends Parameter.Builder<Long, TimestampParameter>> BType valueFromString(final String aValue) {
+		public <BType extends Parameter.Builder<Long, Value>> BType valueFromString(final String aValue) {
 			if (aValue != null)
 				value(Long.valueOf(aValue));
 
 			return CastOperationUtils.cast(this);
 		}
+
+		@Override
+		public abstract Value build();
+	}
+
+	/**
+	 * Builder facility.
+	 */
+	public static class TimestampBuilder extends Builder<TimestampParameter> {
 
 		/**
 		 * Perform {@link TimestampParameter} creation.

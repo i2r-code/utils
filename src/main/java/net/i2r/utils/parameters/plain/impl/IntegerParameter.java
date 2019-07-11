@@ -20,11 +20,11 @@ public class IntegerParameter extends PlainParameter<Integer> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link Integer} as value
+	 *        {@link Integer} as value
 	 * @param required
 	 * 		is required
 	 */
-	private IntegerParameter(final String name, final Integer value, final boolean required) {
+	protected IntegerParameter(final String name, final Integer value, final boolean required) {
 		super(name, value, required);
 	}
 
@@ -34,7 +34,7 @@ public class IntegerParameter extends PlainParameter<Integer> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link Integer} as value
+	 *        {@link Integer} as value
 	 * @param required
 	 * 		is required
 	 * @param decorator
@@ -42,7 +42,7 @@ public class IntegerParameter extends PlainParameter<Integer> {
 	 * @param preProcess
 	 * 		value pre processing {@link String} expression
 	 */
-	private IntegerParameter(final String name, final Integer value, final boolean required, final String decorator, final String preProcess) {
+	protected IntegerParameter(final String name, final Integer value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);
 	}
 
@@ -57,7 +57,7 @@ public class IntegerParameter extends PlainParameter<Integer> {
 	 * @return {@link Builder}
 	 */
 	public static Builder builder() {
-		return new Builder();
+		return new IntegerBuilder();
 	}
 
 	@Override
@@ -70,15 +70,24 @@ public class IntegerParameter extends PlainParameter<Integer> {
 	/**
 	 * Builder facility.
 	 */
-	public static class Builder extends PlainParameter.Builder<Integer, IntegerParameter> {
+	public abstract static class Builder<Value extends IntegerParameter> extends PlainParameter.Builder<Integer, Value> {
 
 		@Override
-		public <BType extends Parameter.Builder<Integer, IntegerParameter>> BType valueFromString(final String aValue) {
+		public <BType extends Parameter.Builder<Integer, Value>> BType valueFromString(final String aValue) {
 			if (aValue != null)
 				value(Integer.valueOf(aValue));
 
 			return CastOperationUtils.cast(this);
 		}
+
+		@Override
+		public abstract Value build();
+	}
+
+	/**
+	 * Builder facility.
+	 */
+	public static class IntegerBuilder extends Builder<IntegerParameter> {
 
 		/**
 		 * Perform {@link IntegerParameter} creation.

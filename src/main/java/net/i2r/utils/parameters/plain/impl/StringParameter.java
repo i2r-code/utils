@@ -20,11 +20,11 @@ public class StringParameter extends PlainParameter<String> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link String} as value
+	 *        {@link String} as value
 	 * @param required
 	 * 		is required
 	 */
-	private StringParameter(final String name, final String value, final boolean required) {
+	protected StringParameter(final String name, final String value, final boolean required) {
 		super(name, value, required);
 	}
 
@@ -34,7 +34,7 @@ public class StringParameter extends PlainParameter<String> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link String} as value
+	 *        {@link String} as value
 	 * @param required
 	 * 		is required
 	 * @param decorator
@@ -42,7 +42,7 @@ public class StringParameter extends PlainParameter<String> {
 	 * @param preProcess
 	 * 		value pre processing {@link String} expression
 	 */
-	private StringParameter(final String name, final String value, final boolean required, final String decorator, final String preProcess) {
+	protected StringParameter(final String name, final String value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);
 	}
 
@@ -57,7 +57,7 @@ public class StringParameter extends PlainParameter<String> {
 	 * @return {@link Builder}
 	 */
 	public static Builder builder() {
-		return new Builder();
+		return new StringBuilder();
 	}
 
 	@Override
@@ -70,15 +70,24 @@ public class StringParameter extends PlainParameter<String> {
 	/**
 	 * Builder facility.
 	 */
-	public static class Builder extends PlainParameter.Builder<String, StringParameter> {
+	public abstract static class Builder<Value extends StringParameter> extends PlainParameter.Builder<String, Value> {
 
 		@Override
-		public <BType extends Parameter.Builder<String, StringParameter>> BType valueFromString(final String aValue) {
+		public <BType extends Parameter.Builder<String, Value>> BType valueFromString(final String aValue) {
 			if (aValue != null)
 				value(aValue);
 
 			return CastOperationUtils.cast(this);
 		}
+
+		@Override
+		public abstract Value build();
+	}
+
+	/**
+	 * Builder facility.
+	 */
+	public static class StringBuilder extends Builder<StringParameter> {
 
 		/**
 		 * Perform {@link StringParameter} creation.

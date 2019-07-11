@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Complex parameter definition.
  */
-public abstract class ComplexParameter<Value extends Serializable> extends Parameter<Value> {
+public class ComplexParameter extends Parameter<Serializable> {
 	/**
 	 * Basic serial version UID.
 	 */
@@ -26,7 +26,7 @@ public abstract class ComplexParameter<Value extends Serializable> extends Param
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 *        {@link Value} as value
+	 *        {@link Serializable} as value
 	 * @param required
 	 * 		is required
 	 * @param decorator
@@ -34,7 +34,7 @@ public abstract class ComplexParameter<Value extends Serializable> extends Param
 	 * @param preProcess
 	 * 		value pre processing {@link String} expression
 	 */
-	private ComplexParameter(final String name, final Value value, final boolean required, final String decorator, final String preProcess, final String valueClass) {
+	protected ComplexParameter(final String name, final Serializable value, final boolean required, final String decorator, final String preProcess, final String valueClass) {
 		super(name, value, required, decorator, preProcess);
 		if (value != null)
 			this.valueClassName = value.getClass().getName();
@@ -46,13 +46,6 @@ public abstract class ComplexParameter<Value extends Serializable> extends Param
 	public ParameterType getType() {
 		return ParameterType.COMPLEX;
 	}
-
-	/**
-	 * Fetches type of the complex parameter.
-	 *
-	 * @return {@link ComplexParameterType}
-	 */
-	public abstract ComplexParameterType getComplexParameterType();
 
 	@Override
 	public Class<?> getValueClass() {
@@ -103,16 +96,81 @@ public abstract class ComplexParameter<Value extends Serializable> extends Param
 	}
 
 	/**
-	 * Builder facility.
+	 * Fetches {@link Builder}.
 	 *
-	 * @param <Value>
+	 * @return {@link Builder}
 	 */
-	public abstract static class Builder<Value extends Serializable, Result extends ComplexParameter<Value>> extends Parameter.Builder<Value, Result> {
+	public static Builder builder() {
+		return new ComplexBuilder();
+	}
+
+	@Override
+	public Builder toBuilder() {
+		final Builder result = builder();
+		populateBuilder(result);
+		return result;
+	}
+
+	@Override
+	protected void populateBuilder(final Parameter.Builder<Serializable, ? extends Parameter<Serializable>> builder) {
+		super.populateBuilder(builder);
+		Builder.class.cast(builder).valueClass(valueClassName);
+	}
+
+	/**
+	 * Builder for the {@link ComplexParameter}.
+	 */
+	public abstract static class Builder<Value extends ComplexParameter> extends Parameter.Builder<Serializable, Value> {
 		/**
-		 * Perform {@link ComplexParameter} build.
-		 *
-		 * @return {@link ComplexParameter}
+		 * Builder 'valueClass'.
 		 */
-		public abstract Result build();
+		protected String valueClass;
+
+		/**
+		 * Allow to provide {@link #valueClass}/
+		 *
+		 * @param vClass
+		 * 		class name
+		 * @return {@link Builder}
+		 */
+		public Builder valueClass(final String vClass) {
+			if (StringUtils.isEmpty(vClass))
+				return this;
+			valueClass = vClass;
+
+			return this;
+		}
+
+		@Override
+		public Builder value(final Serializable aValue) {
+			if (aValue == null)
+				return this;
+			super.value(aValue);
+			valueClass = aValue.getClass().getName();
+			return this;
+		}
+
+		@Override
+		public <BType extends Parameter.Builder<Serializable, Value>> BType valueFromString(final String aValue) {
+			throw new IllegalStateException("Not supported method");
+		}
+
+		@Override
+		public abstract Value build();
+	}
+
+	/**
+	 * Builder facility.
+	 */
+	public static class ComplexBuilder extends Builder<ComplexParameter> {
+
+		/**
+		 * Perform {@link ComplexParameter} creation.
+		 *
+		 * @return {@link ComplexParameter} instance
+		 */
+		public ComplexParameter build() {
+			return new ComplexParameter(name, value, required, decorator, preProcess, valueClass);
+		}
 	}
 }

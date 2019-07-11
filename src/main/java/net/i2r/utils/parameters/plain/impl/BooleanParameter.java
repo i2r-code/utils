@@ -24,7 +24,7 @@ public class BooleanParameter extends PlainParameter<Boolean> {
 	 * @param required
 	 * 		is required
 	 */
-	private BooleanParameter(final String name, final Boolean value, final boolean required) {
+	protected BooleanParameter(final String name, final Boolean value, final boolean required) {
 		super(name, value, required);
 	}
 
@@ -42,7 +42,7 @@ public class BooleanParameter extends PlainParameter<Boolean> {
 	 * @param preProcess
 	 * 		value pre processing {@link String} expression
 	 */
-	private BooleanParameter(final String name, final Boolean value, final boolean required, final String decorator, final String preProcess) {
+	protected BooleanParameter(final String name, final Boolean value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);
 	}
 
@@ -57,7 +57,7 @@ public class BooleanParameter extends PlainParameter<Boolean> {
 	 * @return {@link Builder}
 	 */
 	public static Builder builder() {
-		return new Builder();
+		return new BooleanBuilder();
 	}
 
 	@Override
@@ -70,15 +70,24 @@ public class BooleanParameter extends PlainParameter<Boolean> {
 	/**
 	 * Builder facility.
 	 */
-	public static class Builder extends PlainParameter.Builder<Boolean, BooleanParameter> {
+	public abstract static class Builder<Value extends BooleanParameter> extends PlainParameter.Builder<Boolean, Value> {
 
 		@Override
-		public <BType extends Parameter.Builder<Boolean, BooleanParameter>> BType valueFromString(final String aValue) {
+		public <BType extends Parameter.Builder<Boolean, Value>> BType valueFromString(final String aValue) {
 			if (aValue != null)
 				value(Boolean.valueOf(aValue));
 
 			return CastOperationUtils.cast(this);
 		}
+
+		@Override
+		public abstract Value build();
+	}
+
+	/**
+	 * Builder facility.
+	 */
+	public static class BooleanBuilder extends Builder<BooleanParameter> {
 
 		/**
 		 * Perform {@link BooleanParameter} creation.

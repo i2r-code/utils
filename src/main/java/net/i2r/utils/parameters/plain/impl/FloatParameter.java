@@ -20,11 +20,11 @@ public class FloatParameter extends PlainParameter<Float> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link Float} as value
+	 *        {@link Float} as value
 	 * @param required
 	 * 		is required
 	 */
-	private FloatParameter(final String name, final Float value, final boolean required) {
+	protected FloatParameter(final String name, final Float value, final boolean required) {
 		super(name, value, required);
 	}
 
@@ -34,7 +34,7 @@ public class FloatParameter extends PlainParameter<Float> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link Float} as value
+	 *        {@link Float} as value
 	 * @param required
 	 * 		is required
 	 * @param decorator
@@ -42,7 +42,7 @@ public class FloatParameter extends PlainParameter<Float> {
 	 * @param preProcess
 	 * 		value pre processing {@link String} expression
 	 */
-	private FloatParameter(final String name, final Float value, final boolean required, final String decorator, final String preProcess) {
+	protected FloatParameter(final String name, final Float value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);
 	}
 
@@ -57,7 +57,7 @@ public class FloatParameter extends PlainParameter<Float> {
 	 * @return {@link Builder}
 	 */
 	public static Builder builder() {
-		return new Builder();
+		return new FloatBuilder();
 	}
 
 	@Override
@@ -70,15 +70,24 @@ public class FloatParameter extends PlainParameter<Float> {
 	/**
 	 * Builder facility.
 	 */
-	public static class Builder extends PlainParameter.Builder<Float, FloatParameter> {
+	public abstract static class Builder<Value extends FloatParameter> extends PlainParameter.Builder<Float, Value> {
 
 		@Override
-		public <BType extends Parameter.Builder<Float, FloatParameter>> BType valueFromString(final String aValue) {
+		public <BType extends Parameter.Builder<Float, Value>> BType valueFromString(final String aValue) {
 			if (aValue != null)
 				value(Float.valueOf(aValue));
 
 			return CastOperationUtils.cast(this);
 		}
+
+		@Override
+		public abstract Value build();
+	}
+
+	/**
+	 * Builder facility.
+	 */
+	public static class FloatBuilder extends Builder<FloatParameter> {
 
 		/**
 		 * Perform {@link FloatParameter} creation.

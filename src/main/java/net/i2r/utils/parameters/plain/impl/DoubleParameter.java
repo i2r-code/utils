@@ -20,11 +20,11 @@ public class DoubleParameter extends PlainParameter<Double> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link Double} as value
+	 *        {@link Double} as value
 	 * @param required
 	 * 		is required
 	 */
-	private DoubleParameter(final String name, final Double value, final boolean required) {
+	protected DoubleParameter(final String name, final Double value, final boolean required) {
 		super(name, value, required);
 	}
 
@@ -34,7 +34,7 @@ public class DoubleParameter extends PlainParameter<Double> {
 	 * @param name
 	 * 		parameter name
 	 * @param value
-	 * 		{@link Double} as value
+	 *        {@link Double} as value
 	 * @param required
 	 * 		is required
 	 * @param decorator
@@ -42,7 +42,7 @@ public class DoubleParameter extends PlainParameter<Double> {
 	 * @param preProcess
 	 * 		value pre processing {@link String} expression
 	 */
-	private DoubleParameter(final String name, final Double value, final boolean required, final String decorator, final String preProcess) {
+	protected DoubleParameter(final String name, final Double value, final boolean required, final String decorator, final String preProcess) {
 		super(name, value, required, decorator, preProcess);
 	}
 
@@ -57,7 +57,7 @@ public class DoubleParameter extends PlainParameter<Double> {
 	 * @return {@link Builder}
 	 */
 	public static Builder builder() {
-		return new Builder();
+		return new DoubleBuilder();
 	}
 
 	@Override
@@ -70,15 +70,24 @@ public class DoubleParameter extends PlainParameter<Double> {
 	/**
 	 * Builder facility.
 	 */
-	public static class Builder extends PlainParameter.Builder<Double, DoubleParameter> {
+	public abstract static class Builder<Value extends DoubleParameter> extends PlainParameter.Builder<Double, Value> {
 
 		@Override
-		public <BType extends Parameter.Builder<Double, DoubleParameter>> BType valueFromString(final String aValue) {
+		public <BType extends Parameter.Builder<Double, Value>> BType valueFromString(final String aValue) {
 			if (aValue != null)
 				value(Double.valueOf(aValue));
 
 			return CastOperationUtils.cast(this);
 		}
+
+		@Override
+		public abstract Value build();
+	}
+
+	/**
+	 * Builder facility.
+	 */
+	public static class DoubleBuilder extends Builder<DoubleParameter> {
 
 		/**
 		 * Perform {@link DoubleParameter} creation.
@@ -89,6 +98,4 @@ public class DoubleParameter extends PlainParameter<Double> {
 			return new DoubleParameter(name, value, required, decorator, preProcess);
 		}
 	}
-
-
 }
