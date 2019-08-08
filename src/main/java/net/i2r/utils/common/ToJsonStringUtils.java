@@ -1,15 +1,19 @@
 package net.i2r.utils.common;
 
-import java.lang.reflect.Field;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  * Utilities for <code>toString</code>.
@@ -105,40 +109,33 @@ public final class ToJsonStringUtils {
 		}
 
 		final StringBuilder result = new StringBuilder();
-		if (obj instanceof String)
-			return result.append("\"").append(obj.toString()).append("\"").toString();
+		if (obj.getClass().isEnum())
+			return result.append("\"").append(StringEscapeUtils.escapeJson(((Enum) obj).name())).append("\"").toString();
+		if (obj instanceof String || obj instanceof Class)
+			return result.append("\"").append(StringEscapeUtils.escapeJson(obj.toString())).append("\"").toString();
 		if (obj instanceof Collection)
 			return toString(Collection.class.cast(obj));
 		if (obj instanceof Map)
 			return toString(Map.class.cast(obj));
 
 		result.append(FIRST_CHAR);
-		final Field[] fields = obj.getClass().getDeclaredFields();
-		for (int i = 0; i < fields.length; i++) {
-			final Field field = fields[i];
-			field.setAccessible(true);
-
+		final Iterator<Map.Entry<String, Object>> iterator = getFieldsValues(obj).entrySet().iterator();
+		while (iterator.hasNext())
 			try {
-				result.append("\"").append(field.getName()).append("\":");
+				final Map.Entry<String, Object> field = iterator.next();
+				result.append("\"").append(field.getKey()).append("\":");
 
-				final Object value = field.get(obj);
-				if (ClassUtils.isPrimitiveOrWrapper(value.getClass())) {
+				final Object value = field.getValue();
+				if (value != null && ClassUtils.isPrimitiveOrWrapper(value.getClass())) {
 					result.append(value.toString());
-
-					if (i != fields.length - 1)
-						result.append(",");
-
 					continue;
 				}
 
 				result.append(toString(value));
-			} catch (final IllegalAccessException e) {
-				e.printStackTrace();
+			} finally {
+				if (iterator.hasNext())
+					result.append(",");
 			}
-
-			if (i != fields.length - 1)
-				result.append(",");
-		}
 
 		return result.append(LAST_CHAR).toString();
 	}
@@ -253,5 +250,36 @@ public final class ToJsonStringUtils {
 
 		builder.append(LAST_CHAR);
 		return builder.toString();
+	}
+
+	/**
+	 * Read all object fields using getters methods.
+	 *
+	 * @param bean
+	 *        {@link Object} to analyze
+	 * @return map of field name/field value
+	 */
+	private static Map<String, Object> getFieldsValues(final Object bean) {
+		try {
+			final Map<String, Object> result = new LinkedHashMap<>();
+			Stream.of(Introspector
+					.getBeanInfo(bean.getClass(), Object.class)
+					.getPropertyDescriptors())
+				  .filter(pd -> Objects.nonNull(pd.getReadMethod()))
+				  .forEach(pd -> {
+					  try {
+						  Object value = pd.getReadMethod().invoke(bean);
+						  if (value != null)
+							  result.put(pd.getName(), value);
+
+					  } catch (final Exception e) {
+						  // add proper error handling here
+					  }
+				  });
+			return result;
+		} catch (final IntrospectionException e) {
+			// add proper error handling here
+			return Collections.emptyMap();
+		}
 	}
 }
