@@ -14,7 +14,7 @@
     </organization>
 
     <parent>
-        <groupId>net.i2r</groupId>
+        <groupId>com.i2r</groupId>
         <artifactId>i2r-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
