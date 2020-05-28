@@ -19,10 +19,8 @@ public final class NumberOperationUtils {
 	/**
 	 * Compare two instances of {@link Number} between each other.
 	 *
-	 * @param first
-	 * 		first {@link Number}, can't be <code>null</code>
-	 * @param second
-	 * 		second {@link Number}, can't be <code>null</code>
+	 * @param first  first {@link Number}, can't be <code>null</code>
+	 * @param second second {@link Number}, can't be <code>null</code>
 	 * @return -1, 0, or 1 as first {@link Number} is less than, equal to, or greater than second {@link Number}
 	 */
 	public static int compare(final Number first, final Number second) {
@@ -67,10 +65,8 @@ public final class NumberOperationUtils {
 	 * - {@link Integer} - in case if both arguments are instance of {@link Integer} or {@link Short} or {@link Byte};<br>
 	 * - default is {@link BigDecimal} - for all other cases, including other and custom Number implementations.
 	 *
-	 * @param first
-	 * 		first {@link Number}
-	 * @param second
-	 * 		second {@link Number}
+	 * @param first  first {@link Number}
+	 * @param second second {@link Number}
 	 * @return {@link Number} as sum of <code>first</code> and <code>second</code>
 	 */
 	public static Number add(final Number first, final Number second) {
@@ -111,10 +107,8 @@ public final class NumberOperationUtils {
 	 * - {@link Integer} - in case if both arguments are instance of {@link Integer} or {@link Short} or {@link Byte};<br>
 	 * - default is {@link BigDecimal} - for all other cases, including other and custom Number implementations.
 	 *
-	 * @param first
-	 * 		first {@link Number}
-	 * @param second
-	 * 		second {@link Number}
+	 * @param first  first {@link Number}
+	 * @param second second {@link Number}
 	 * @return {@link Number} as sum of <code>first</code> and <code>second</code>
 	 */
 	public static Number subtract(final Number first, final Number second) {

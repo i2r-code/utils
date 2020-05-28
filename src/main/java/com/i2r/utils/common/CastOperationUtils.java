@@ -19,8 +19,7 @@ public final class CastOperationUtils {
 	/**
 	 * Cast {@link Object} to expected type.
 	 *
-	 * @param object
-	 *        {@link Object}
+	 * @param object {@link Object}
 	 * @return {@link Object} with expected type
 	 */
 	@SuppressWarnings ("unchecked")
@@ -31,8 +30,7 @@ public final class CastOperationUtils {
 	/**
 	 * Cast {@link Object} to {@link List}.
 	 *
-	 * @param object
-	 *        {@link Object}
+	 * @param object {@link Object}
 	 * @return {@link List}
 	 */
 	@SuppressWarnings ("unchecked")
@@ -43,8 +41,7 @@ public final class CastOperationUtils {
 	/**
 	 * Cast {@link Object} to {@link Set}.
 	 *
-	 * @param object
-	 *        {@link Object}
+	 * @param object {@link Object}
 	 * @return {@link Set}
 	 */
 	@SuppressWarnings ("unchecked")
@@ -55,8 +52,7 @@ public final class CastOperationUtils {
 	/**
 	 * Cast {@link Object} to {@link Map}.
 	 *
-	 * @param object
-	 *        {@link Object}
+	 * @param object {@link Object}
 	 * @return {@link Map}
 	 */
 	@SuppressWarnings ("unchecked")

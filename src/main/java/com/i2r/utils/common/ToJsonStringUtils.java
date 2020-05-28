@@ -92,8 +92,7 @@ public final class ToJsonStringUtils {
 	/**
 	 * Create string representation for any array with default elements limit.
 	 *
-	 * @param obj
-	 * 		object to string
+	 * @param obj object to string
 	 * @return {@link String}
 	 */
 	public static String toString(final Object obj) {
@@ -143,8 +142,7 @@ public final class ToJsonStringUtils {
 	/**
 	 * Create string representation for any array with default elements limit.
 	 *
-	 * @param array
-	 * 		array, can be <code>null</code> or empty
+	 * @param array array, can be <code>null</code> or empty
 	 * @return {@link String}
 	 */
 	public static String toString(final Object[] array) {
@@ -154,10 +152,8 @@ public final class ToJsonStringUtils {
 	/**
 	 * Create string representation for any array with default elements limit.
 	 *
-	 * @param array
-	 * 		array, can be <code>null</code> or empty
-	 * @param maxLen
-	 * 		elements limit used in representation
+	 * @param array  array, can be <code>null</code> or empty
+	 * @param maxLen elements limit used in representation
 	 * @return {@link String}
 	 */
 	public static String toString(final Object[] array, final int maxLen) {
@@ -167,8 +163,7 @@ public final class ToJsonStringUtils {
 	/**
 	 * Create string representation for any collection with default elements limit.
 	 *
-	 * @param collection
-	 * 		collection, can be <code>null</code> or empty
+	 * @param collection collection, can be <code>null</code> or empty
 	 * @return {@link String}
 	 */
 	public static String toString(final Collection<?> collection) {
@@ -178,10 +173,8 @@ public final class ToJsonStringUtils {
 	/**
 	 * Create string representation for any collection.
 	 *
-	 * @param collection
-	 * 		collection, can be <code>null</code> or empty
-	 * @param maxLen
-	 * 		elements limit used in representation
+	 * @param collection collection, can be <code>null</code> or empty
+	 * @param maxLen     elements limit used in representation
 	 * @return {@link String}
 	 */
 	public static String toString(final Collection<?> collection, final int maxLen) {
@@ -209,8 +202,7 @@ public final class ToJsonStringUtils {
 	/**
 	 * Create string representation for map with default elements limit.
 	 *
-	 * @param map
-	 * 		map, can be <code>null</code> or empty
+	 * @param map map, can be <code>null</code> or empty
 	 * @return {@link String}
 	 */
 	public static String toString(final Map<?, ?> map) {
@@ -220,10 +212,8 @@ public final class ToJsonStringUtils {
 	/**
 	 * Create string representation for map.
 	 *
-	 * @param map
-	 * 		map, can be <code>null</code> or empty
-	 * @param maxLen
-	 * 		elements limit used in representation
+	 * @param map    map, can be <code>null</code> or empty
+	 * @param maxLen elements limit used in representation
 	 * @return {@link String}
 	 */
 	public static String toString(final Map<?, ?> map, final int maxLen) {
@@ -255,8 +245,7 @@ public final class ToJsonStringUtils {
 	/**
 	 * Read all object fields using getters methods.
 	 *
-	 * @param bean
-	 *        {@link Object} to analyze
+	 * @param bean {@link Object} to analyze
 	 * @return map of field name/field value
 	 */
 	private static Map<String, Object> getFieldsValues(final Object bean) {
